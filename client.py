@@ -12,7 +12,8 @@ PORT = 7031
 CONNECT = 'CONNECT\x00'
 POLL = 'POLL\x00\x00\x00\x00'
 PING = 'PING\x00\x00\x00\x00'
-
+START_FILE = 'F_START\x00'
+END_FILE = 'F_END\x00'
 
 STATUS_GOOD = 'GOOD\x00\x00\x00\x00'
 
@@ -42,9 +43,13 @@ class ServerConnection:
         self.s.send(data)
         print 'Sent Raw Data: %s' % data
 
-    def save_file(self, file):
-        self.s.send(data)
-        print 'Sent Raw Data: %s' % data
+    def save_file(self, file_path):
+        self.s.send(START_FILE)
+        self.s.send('\x00' * 8 + '\x00' * 7 + '\x04' + '\x00' * 32)
+        with open(file_path, "rb") as f:
+            for chunk in iter(lambda: f.read(128), b""):
+               self.s.send(chunk)
+        self.s.send(END_FILE)
 
 class KeyStore:
 
@@ -87,7 +92,7 @@ class ClientManager:
 def run_cli(con):
 
     while True:
-        menu_items = ['1', '2']
+        menu_items = ['1', '2', '3']
         print 'Client Menu'
         print '1. Ping Server'
         print '2. Send Arbitrary Data'
@@ -97,7 +102,7 @@ def run_cli(con):
             {
                 '1': lambda: con.ping(),
                 '2': lambda: con.send_raw(raw_input('Enter Data to Send:')),
-                '3': lambda: con.save_file(raw_input('Enter File Path to Send:')),
+                '3': lambda: con.save_file(raw_input('Enter file path to save:')),
             }[opt]()
         else:
             print 'Not a valid choice.'
