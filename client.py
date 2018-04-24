@@ -42,6 +42,10 @@ class ServerConnection:
         self.s.send(data)
         print 'Sent Raw Data: %s' % data
 
+    def save_file(self, file):
+        self.s.send(data)
+        print 'Sent Raw Data: %s' % data
+
 class KeyStore:
 
     def __init__(self):
@@ -87,11 +91,13 @@ def run_cli(con):
         print 'Client Menu'
         print '1. Ping Server'
         print '2. Send Arbitrary Data'
+        print '3. Save File'
         opt = raw_input('Please Select an Option: ')
         if opt in menu_items:
             {
                 '1': lambda: con.ping(),
-                '2': lambda: con.send_raw(raw_input('Enter Data to Send:'))
+                '2': lambda: con.send_raw(raw_input('Enter Data to Send:')),
+                '3': lambda: con.save_file(raw_input('Enter File Path to Send:')),
             }[opt]()
         else:
             print 'Not a valid choice.'
