@@ -1,0 +1,16 @@
+Save File UI in Client Somehow
+Delete Key When Deleting File
+
+Remove File Chunking
+
+Test!
+
+Have the server make other clients store instead of storing itself
+
+Challenge system
+Polling and points
+Sharing with all clients
+Command line tool and daemon
+Virtual file system server side
+Storing black key files server side
+Creating accounts
