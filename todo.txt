@@ -1,11 +1,19 @@
-Save File UI in Client Somehow
+Save File UID in Client Somehow
 Delete Key When Deleting File
 
 Remove File Chunking
 
 Test!
 
+Unit Tests
+
+Split into files
+Configuration File for Variables
+
 Have the server make other clients store instead of storing itself
+
+
+Deploy to AWS
 
 Challenge system
 Polling and points

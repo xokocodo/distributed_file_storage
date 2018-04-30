@@ -71,13 +71,13 @@ class AESCipher(object):
 
     def encrypt(self, data, iv):
         raw = self._pad(data)
-        iv = Random.new().read(AES.block_size)
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return cipher.encrypt(raw)
 
     def decrypt(self, data, iv):
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return self._unpad(cipher.decrypt(data))
+        raw_data = cipher.decrypt(data)
+        return self._unpad(raw_data)
 
     def _pad(self, s):
         return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)

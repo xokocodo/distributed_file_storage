@@ -454,9 +454,10 @@ class FileStorageClient:
         dec_data = aes_obj.decrypt(enc_data, iv)
         log('Encrypted Data: %s' % binascii.hexlify(enc_data))
         log('Decrypted Data: %s' % binascii.hexlify(dec_data))
-        if dec_data != enc_data:
+        log('Initial Data:   %s' % binascii.hexlify(file_data))
+        if dec_data != file_data:
             log('Loopback Encrypt/Decrypt Failed')
-            #3return
+            return
 
         # Save Key and IV to Folder
         key_file_data = {
